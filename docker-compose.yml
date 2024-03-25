@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  xela-web-nginx:
+    image: nginx:1.25.1-alpine
+    container_name: xela-web-nginx
+    restart: always
+    networks:
+      - traefik_proxy
+    volumes:
+      - ./src:/usr/share/nginx/html:ro
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.xela-web-nginx.rule=Host(`xela.me`) || Host(`www.xela.me`)"
+      - "traefik.http.routers.xela-web-nginx.entrypoints=websecure"
+      - "traefik.http.routers.xela-web-nginx.tls.certresolver=letsencrypt"
+
+networks:
+  traefik_proxy:
+    name: traefik_proxy
+    external: true
