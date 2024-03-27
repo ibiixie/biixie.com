@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch: 
+
+jobs:          
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - name: Deploy to Oracle Cloud server via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            cd ${{ secrets.REMOTE_WORKING_DIRECTORY }}
+            echo "Pulling changes..."
+            git pull
+            echo "Running deployment script..."
+            sh deploy.sh
+            echo "Deployment complete!"
