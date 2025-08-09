@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href={{  get_url(path="projects/style.css" ) }}>
+{% endblock head %}
+
+{% block content %}
+<section>
+  <!-- The projects.json file is created as part of the docker image build! -->
+  {% set gh_data = load_data(path="projects.json", format="json") %}
+  <p>
+    here is a list of some projects i have worked on. if you would like to
+    see more, feel free to take a look at my
+    <a href="https://github.com/ibiixie" target="_blank">github profile</a>!
+  </p>
+  <ul id="projects-container">
+    {% for projectItem in gh_data.data.user.pinnedItems.nodes %}
+    <li>
+      <div class="card">
+        <div id="project-title-container">
+          <h2><a href="{{ projectItem.url }}" target="_blank">{{ projectItem.name | lower }}</a></h2>
+          {% set release = projectItem.latestRelease %}
+          {% if release %}
+          <div class="badge" id="project-version-container">
+            <p>{{ release.tagName | lower }}</p>
+          </div>
+          {% endif %}
+          <div class="badge">
+            <p>
+              {{ projectItem.primaryLanguage.name | lower }}
+            </p>
+          </div>
+        </div>
+        <p>{{ projectItem.description | lower }}</p>
+        <div id="project-topic-container">
+          {% for topicItem in projectItem.repositoryTopics.nodes %}
+          <div class="badge">
+            <p>{{ topicItem.topic.name | lower }}</p>
+          </div>
+          {% endfor %}
+        </div>
+        {% if release and release.releaseAssets.totalCount > 0 %}
+        <div class="dropdown">
+          <label>downloads
+            <input type="checkbox" name="release-dropdown"></label>
+          <div id="menu">
+            {% for asset in release.releaseAssets.nodes %}
+            <div class="btn">
+              <a href="{{ asset.downloadUrl }}">{{ asset.name | lower }}</a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock content %}

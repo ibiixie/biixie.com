@@ -1,0 +1,516 @@
+// Global site-wide base styling
+
+@use "themes/catppuccin/theme.scss";
+
+@font-face {
+  // Uses a subset version of Nunito with only common latin glyphs
+  // and in bold weight only to reduce file size as much as possible.
+  font-family: 'Nunito Bold Latin';
+  src: url("../fonts/nunito-bold-latin.woff2");
+}
+
+// Noscript warning
+
+noscript {
+  color: rgb(var(--catppuccin-red));
+}
+
+// Will only display elements with this class if JS is enabled.
+.jsonly {
+  display: none;
+}
+
+
+// View transitions
+
+@view-transition {
+  navigation: auto;
+}
+
+header {
+  view-transition-name: header;
+}
+
+main {
+  view-transition-name: main;
+}
+
+footer {
+  view-transition-name: footer;
+}
+
+::view-transition-group(header) {
+  transition: all;
+}
+
+::view-transition-old(main) {
+  animation: 0.4s ease-in-out both main-move-out;
+}
+
+::view-transition-new(main) {
+  animation: 0.4s ease-in-out both main-move-in;
+  animation-delay: 0.4s; // Wait for old content to move out.
+}
+
+::view-transition-group(footer) {
+  transition: all 0.4s ease-in-out;
+  animation-delay: 0.4s;
+}
+
+@keyframes main-move-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(30vw);
+  }
+}
+
+@keyframes main-move-in {
+  from {
+    opacity: 0;
+    transform: translateX(-30vw);
+  }
+}
+
+// Element styles
+
+* {
+  font-family: 'Nunito Bold Latin', sans-serif;
+  font-weight: normal;
+  margin: 0;
+}
+
+html {
+  // Set base font size.
+  font-size: 18px;
+}
+
+html,
+body {
+  min-height: 100%;
+  max-height: fit-content;
+  width: auto;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+}
+
+a:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 0.1em;
+  bottom: 0.2em;
+  left: 0;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+  background-color: rgb(var(--catppuccin-mauve));
+  border-radius: 0.1em;
+}
+
+a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+a.active {
+  @extend a, :hover;
+}
+
+a.disabled {
+  color: rgb(var(--catppuccin-surface1));
+  pointer-events: none;
+}
+
+a.disabled:hover::after {
+  transform: scaleX(0);
+  transform-origin: bottom left;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  margin-left: .25em;
+  margin-right: .25em;
+  margin-top: 4em;
+}
+
+header,
+main,
+footer {
+  max-width: 44em;
+  width: 100%;
+  margin: auto;
+  padding: 1em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+main {
+  row-gap: 2em;
+}
+
+main>* {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+main>#section-title {
+  color: rgb(var(--catppuccin-text));
+  text-decoration: underline;
+}
+
+header {
+  padding-bottom: 0.2em;
+  border-bottom: 2px solid rgb(var(--catppuccin-overlay2));
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  border-top: 2px solid rgb(var(--catppuccin-overlay2));
+}
+
+footer>#notices {
+  font-size: 0.85rem;
+  margin-top: -.2rem;
+}
+
+footer>#notices>p+p {
+  margin-top: -1rem;
+}
+
+footer>#buttons {
+  margin-left: auto;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1em;
+}
+
+pre {
+  border-radius: 8px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  margin: 0;
+}
+
+nav>ul {
+  display: flex;
+  flex-direction: row;
+  column-gap: 1em;
+  list-style: none;
+  padding: 0;
+  margin: 0 0;
+}
+
+@media (width <=30em) {
+  html {
+    // Base font size override for mobile.
+    font-size: 16px;
+  }
+
+  main {
+    padding-left: 0;
+  }
+
+  nav,
+  nav ul {
+    width: fit-content;
+    margin: auto;
+  }
+
+  body {
+    margin-top: .25em;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+
+  footer section {
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+  }
+
+  footer>section * {
+    margin: auto;
+  }
+}
+
+/* Component styles */
+
+.btn {
+  height: min-content;
+
+  display: flex;
+  text-decoration: none;
+  text-align: center;
+  align-items: center;
+  background-color: rgb(var(--catppuccin-surface1));
+  border-radius: 8px;
+  padding: 2px 4px;
+}
+
+.btn a {
+  height: min-content;
+}
+
+.btn>a:hover {
+  color: rgb(var(--catppuccin-accent));
+}
+
+.btn>a:active {
+  background-color: rgb(var(--catppuccin-overlay0));
+}
+
+.dropdown {
+  margin-top: 0.5em;
+  display: grid;
+  grid-gap: 0.25em;
+  font-size: 0.85em;
+}
+
+.dropdown input {
+  opacity: 0;
+  z-index: 5;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  width: 0;
+  user-select: none;
+  cursor: pointer;
+}
+
+.dropdown #menu {
+  display: flex;
+  gap: 0.25em;
+}
+
+.dropdown label {
+  width: fit-content;
+  border-radius: 8px;
+  padding: 0.35em;
+}
+
+.dropdown label:hover {
+  background-color: rgb(var(--catppuccin-surface1));
+  user-select: none;
+  cursor: pointer;
+}
+
+.dropdown label:focus,
+.dropdown label:hover {
+  background-color: rgb(var(--catppuccin-surface1));
+  user-select: none;
+  cursor: pointer;
+}
+
+.dropdown label:active {
+  background-color: rgb(var(--catppuccin-overlay0));
+}
+
+.dropdown>label::after {
+  transition: transform 0.5s;
+  display: inline-block;
+}
+
+.card {
+  padding-left: 1rem;
+  padding-bottom: 0.7em; // Hacky fix for uneven margins due to line-height
+
+  border-left: 4px solid rgb(var(--catppuccin-surface1));
+}
+
+.badge {
+  text-wrap-mode: nowrap;
+  padding-left: 0.35em;
+  padding-right: 0.35em;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  background-color: rgb(var(--catppuccin-surface1));
+  height: min-content;
+}
+
+.dialog {
+  padding: 0.85rem;
+  border-radius: 0.85cap;
+  border: 3px solid rgb(var(--catppuccin-accent));
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.profile>div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.profile>img {
+  border-radius: 100%;
+  border: 2px solid rgb(var(--catppuccin-accent));
+  max-width: 5em;
+  max-height: 5em;
+  box-shadow: 0px 0px 8px black;
+}
+
+.name {
+  color: rgb(var(--catppuccin-accent));
+}
+
+// TODO: Are these two really needed? Esp. after switching to flexbox fully?
+.spaced-list li {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.spaced-list h4 {
+  min-width: 8em;
+}
+
+@media (width >30em) {
+  .dropdown {
+    white-space: nowrap;
+
+    grid-template-columns: min-content 0fr;
+    transition: grid-template-columns .2s;
+  }
+
+  .dropdown>label::after {
+    transition: transform 0.5s;
+    display: inline-block;
+    content: '🞂';
+  }
+
+  .dropdown #menu {
+    flex-direction: row;
+    align-items: center;
+
+    max-width: min-content;
+    overflow: hidden;
+  }
+
+  .dropdown:has(input:checked) {
+    grid-template-columns: min-content 1fr;
+  }
+
+  .dropdown:has(>label>input:checked)>label::after {
+    transform: rotate(-180deg);
+  }
+}
+
+@media (width <=30em) {
+  .profile {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .profile>div {
+    text-align: center;
+  }
+
+  .profile>div>* {
+    margin: auto;
+  }
+
+  .dropdown {
+    white-space: nowrap;
+
+    grid-template-rows: min-content 0fr;
+    transition: grid-template-rows .2s;
+  }
+
+  .dropdown>label::after {
+    transition: transform 0.5s;
+    display: inline-block;
+    content: '🞃';
+  }
+
+  .dropdown #menu {
+    display: flex;
+    flex-direction: column;
+
+    max-width: min-content;
+    overflow: hidden;
+  }
+
+  .dropdown:has(input:checked) {
+    grid-template-rows: min-content 1fr;
+  }
+
+  .dropdown:has(>label>input:checked)>label::after {
+    transform: rotate(-180deg);
+  }
+}
+
+// 512KB-club button component
+
+.kb-club {
+  font-size: 0.85rem;
+  text-wrap: nowrap;
+}
+
+.kb-club a:after {
+  /* Do not want the underline on this button */
+  height: 0;
+}
+
+.kb-club a {
+  text-decoration: none;
+  color: rgb(var(--catppuccin-text));
+  padding: .25rem 0;
+  transition: .2s;
+}
+
+.kb-club a:hover {
+  background: rgb(var(--catppuccin-overlay2), 0.7);
+}
+
+.kb-club-bg,
+.kb-club-no-bg {
+  border: 2px solid rgb(var(--catppuccin-green));
+  padding: .25rem .5rem;
+}
+
+.kb-club-bg {
+  background: rgb(var(--catppuccin-green));
+  color: rgb(var(--catppuccin-base));
+}
+
+.redacted-text {
+  background-color: rgb(var(--catppuccin-surface1));
+  color: rgb(var(--catppuccin-surface1));
+}
+
+.redacted-text::selection {
+  background-color: rgb(var(--catppuccin-surface1));
+  color: rgb(var(--catppuccin-surface1));
+}

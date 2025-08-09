@@ -1,0 +1,65 @@
+{
+  user(login: "ibiixie") {
+    login
+    pinnedItems(types: REPOSITORY, first: 10) {
+      nodes {
+        ... on Repository {
+          name
+          description
+          url
+          repositoryTopics(first: 10) {
+            nodes {
+              ... on RepositoryTopic {
+                topic {
+                  name
+                }
+              }
+            }
+          }
+          primaryLanguage {
+            name
+            color
+          }
+          languages(first: 5) {
+            nodes {
+              ... on Language {
+                name
+                color
+              }
+            }
+          }
+          refs(
+            refPrefix: "refs/heads/"
+            orderBy: {direction: DESC, field: TAG_COMMIT_DATE}
+            first: 100
+          ) {
+            nodes {
+              name
+              target {
+                ... on Commit {
+                  history(first: 1) {
+                    nodes {
+                      messageHeadline
+                      messageBody
+                      committedDate
+                    }
+                  }
+                }
+              }
+            }
+          }
+          latestRelease {
+            tagName
+            releaseAssets(first: 99) {
+              totalCount
+              nodes {
+                name
+                downloadUrl
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

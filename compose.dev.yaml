@@ -1,0 +1,18 @@
+services:
+  biixie_frontend:
+    pull_policy: never
+    restart: no
+  biixie_backend:
+    pull_policy: never
+    restart: no
+    environment:
+      DEBUG: true
+      BACKEND_LOG_LEVEL: "Trace"
+      ALLOW_DEBUG_MAILING: false
+secrets:
+  cf_turnstile_secret:
+    # environment: CF_TURNSTILE_SECRET
+    file: ./backend/secrets/cf_turnstile_secret
+  redacted_terms:
+    # environment: KVP_REDACTED_TERMS
+    file: ./backend/redacted/redacted_terms.kvp

@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug backend",
+      "program": "${workspaceFolder}/backend/target/debug/backend.exe",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "DEBUG": "true",
+        "MAILJET_API_KEY": "a501f1868ef147dcdb574468b6adc04a",
+        "MAILJET_API_SECRET": "07f351e44ed65942b51ca1df485e4681",
+      }
+    },
+    {
+      "command": "./node_modules/.bin/astro dev",
+      "name": "Debug frontend",
+      "request": "launch",
+      "type": "node-terminal"
+    }
+  ]
+}

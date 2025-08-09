@@ -1,0 +1,37 @@
+// Page-specific styles
+
+#project-title-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: rgb(var(--catppuccin-accent));
+  gap: 0.5em;
+}
+
+#project-version-container {
+  margin: 0.6rem 0rem;
+}
+
+#project-topic-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0.5em;
+  gap: 0.5em;
+}
+
+#projects-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  width: fit-content;
+}
+
+#project-release-container {
+  margin-top: 1rem;
+  font-family: 1rem;
+}

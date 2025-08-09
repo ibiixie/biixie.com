@@ -1,0 +1,5 @@
+secrets:
+  cf_turnstile_secret:
+    environment: CF_TURNSTILE_SECRET
+  redacted_terms:
+    environment: KVP_REDACTED_TERMS

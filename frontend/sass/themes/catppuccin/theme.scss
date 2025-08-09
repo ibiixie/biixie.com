@@ -1,0 +1,31 @@
+@use "palette.scss";
+
+html, body, main, section, header, footer {
+    background-color: rgb(var(--catppuccin-base));
+}
+
+p, h1 {
+    color: rgb(var(--catppuccin-text));
+}
+
+h2, h3, h4, h5, h6 {
+    color: rgb(var(--catppuccin-subtext0));
+}
+
+label {
+    color: rgb(var(--catppuccin-subtext1));
+}
+
+a, button {
+    color: rgb(var(--catppuccin-accent));
+}
+
+pre {
+    padding: 1em;
+    font-size: 12pt;
+}
+
+::selection {
+    // Selection background according to spec should be between 0.2 to 0.3 in opacity.
+    background-color: rgba(var(--catppuccin-overlay2), 0.7);
+}

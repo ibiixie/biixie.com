@@ -1,0 +1,29 @@
+services:
+  biixie_frontend:
+    image: biixie/biixie.com:frontend-latest
+    pull_policy: always
+    container_name: biixie_frontend
+    ports:
+      - "8080:80"
+    restart: always
+    networks:
+      - proxy_net
+
+  biixie_backend:
+    image: biixie/biixie.com:backend-latest
+    pull_policy: always
+    container_name: biixie_backend
+    ports:
+      - "3000:3000"
+    restart: always
+    networks:
+      - proxy_net
+    environment:
+      SECRETS_PATH: /run/secrets/
+    secrets:
+      - cf_turnstile_secret
+      - redacted_terms
+
+networks:
+  proxy_net:
+    external: true

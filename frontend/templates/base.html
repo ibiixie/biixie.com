@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- force dark-mode on non-JS visitors cus why not >:3 -->
+<html lang="en" data-theme="dark" data-cf-sitekey={{  get_env(name="CF_SITEKEY" ) }}>
+  <head>
+    <!-- This looks awful -->
+    {% if section.title %}
+    <title>biixie's ~/{{ section.title | lower }}</title>
+    {% elif page.title %}
+    <title>biixie's ~/{{ page.title | lower }}</title>
+    {% else %}
+    <title>biixie's ~</title>
+    {% endif %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    {% block meta %} {% endblock %}
+    <link rel="shortcut icon" type="image/png" href={{  get_url(path="icon-192x192.png" ) }}>
+    <link rel="shortcut icon" sizes="192x192" href={{  get_url(path="icon-192x192.png" ) }}>
+    <link rel="apple-touch-icon" href={{  get_url(path="icon-192x192.png" ) }}>
+    <link rel="stylesheet" href={{  get_url(path="base.css" ) }}>
+    {% block head %} {% endblock %}
+    <script src={{  get_url(path="js/theme-controller.js" ) }} defer></script>
+    <script src={{  get_url(path="js/navigation.js" ) }} defer></script>
+    <script src={{  get_url(path="js/jsonly.js" ) }} defer></script>
+    <!-- Turnstile -->
+    <script src={{  get_url(path="js/turnstile.js" ) }} defer></script>
+    <script src={{  get_url(path="js/disclose.js" ) }} defer></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback" defer>
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="profile">
+        <img src={{  get_url(path="icon-192x192.png" ) }} alt="Close-up photo of a cute cat with eyes edited to look bigger." width="192" height="192">
+        <div>
+          <h1>hi! i'm
+            <span class="name" title="pronounced 'big-si'">biixie</span>!</h1>
+          <h4>i write code sometimes</h4>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href={{  config.base_url }}>home</a></li>
+          <li><a href={{  get_url(path="/projects" ) }}>projects</a></li>
+          <li><a class="disabled" href={{  get_url(path="/services" ) }}>services</a></li>
+          <li><a class="disabled" href={{  get_url(path="/blog" ) }}>blog</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <!-- Turnstile verification dialog -->
+      <dialog class="dialog" id="cf-turnstile-dialog">
+        <p>Beep boop?</p>
+        <div id="cf-turnstile-widget"></div>
+      </dialog>
+      <!-- <h1 id="section-title">{{ section.title | lower }}</h1> -->
+      {% block content %} {% endblock %}
+    </main>
+    <footer>
+      <section id="notices">
+        <p>
+          <a class="link" href="https://github.com/ibiixie/biixie.com" target="_blank">source code</a>
+          ➜
+          <a class="link" href="https://github.com/ibiixie/biixie.com/blob/main/LICENSE" target="_blank">MIT License</a>
+        </p>
+        <p>
+          site content ➜
+          <a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC
+          BY-NC-SA 4.0</a>
+        </p>
+      </section>
+      <section id="buttons">
+        <!-- <div class="kb-club"> -->
+        <!-- <a target="blank" href="https://512kb.club"><span class="kb-club-no-bg">512kb club</span><span class="kb-club-bg">green team</span></a> -->
+        <!-- </div> -->
+      </section>
+    </footer>
+  </body>
+</html>

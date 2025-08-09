@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block meta %}
+
+
+
+{% endblock meta %}
+
+
+{% block content %}
+<section>
+  <p>
+    i am a weird creature from sweden who is terrible at writing
+    introductions but enjoys writing code of various sorts. i believe in
+    software carcinization and as such my favorite language is the rust
+    language.
+  </p>
+  <p>
+    aside from writing code, another big hobby of mine is gaming! i enjoy
+    everything from emotional interactive stories to competitive shooters.
+    some other interests of mine include cooking, listening to music, reading
+    physical books, consuming a black and bitter liquid known as coffee,
+    petting cute cats, and overusing emoticons and exclamation marks!
+  </p>
+</section>
+<section>
+  <p>you can find me in the following places online:</p>
+  <ul class="spaced-list">
+    <li>
+      <h4>mail</h4>
+      <div class="btn">
+        <p data-redacted id="mail-button" class="redacted" href="#">
+          <span class="jsonly"><span class="redacted-text">user@email.tld</span>
+            <sup>
+              *
+            </sup></span>
+          <noscript>javascript required!</noscript>
+        </p>
+        <a data-disclosed id="mail-button" href="mailto:@@email@@" target="_blank">
+          <span class="jsonly">@@email@@</span>
+        </a>
+      </div>
+    </li>
+    <li>
+      <h4>pgp</h4>
+      <div class="btn">
+        <a href="/pgp.asc" target="_blank">52be 7bf7 e4f1 941b</a>
+      </div>
+    </li>
+    <li>
+      <h4>discord</h4>
+      <div class="btn">
+        <p data-redacted id="discord-button" class="redacted" href="#">
+          <span class="jsonly"><span class="redacted-text">username</span>
+            <sup>
+              *
+            </sup></span>
+          <noscript>javascript required!</noscript>
+        </p>
+        <a data-disclosed id="discord-button" href="https://discord.com/users/@@discord_id@@" target="_blank">
+          <span class="jsonly">@@discord_handle@@</span>
+        </a>
+      </div>
+    </li>
+    <li>
+      <h4>github</h4>
+      <div class="btn">
+        <a href="https://github.com/ibiixie" target="_blank">ibiixie</a>
+      </div>
+    </li>
+    <li>
+      <h4>stackoverflow</h4>
+      <div class="btn">
+        <a href="https://stackoverflow.com/users/9591392/biixie" target="_blank">ibiixie</a>
+      </div>
+    </li>
+    <li>
+      <h4>bluesky</h4>
+      <div class="btn">
+        <a href="https://bsky.app/profile/biixie.com" target="_blank">biixie</a>
+      </div>
+    </li>
+    <li>
+      <h4>mastodon</h4>
+      <div class="btn">
+        <a rel="me" href="https://mastodon.social/@biixie" target="_blank">biixie</a>
+      </div>
+    </li>
+    <li>
+      <h4>steam</h4>
+      <div class="btn">
+        <a href="https://steamcommunity.com/id/ibiixie" target="_blank">ibiixie</a>
+      </div>
+    </li>
+  </ul>
+  <p data-redacted class="jsonly">
+    <sup>*</sup>
+    <sub>verify your human-ness to reveal hidden fields by clicking
+      <a id="disclose-btn" href="#">this link</a>!</sub>
+  </p>
+</section>
+<section>
+  <p>
+    stay kind and thank you for visiting!~
+  </p>
+</section>
+{% endblock content %}
