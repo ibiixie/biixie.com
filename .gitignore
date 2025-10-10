@@ -1,4 +1,5 @@
 .vscode
 **/secrets/**
+backend/redacted
 .env
 env.hcl
