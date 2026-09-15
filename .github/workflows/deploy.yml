@@ -70,28 +70,29 @@ jobs:
           no-cache: true
           targets: backend
 
-  deploy:
-    name: Deploy Stack
-    runs-on: ubuntu-latest
-    environment: production
-    needs: [build-frontend, build-backend]
+  # Website is now hosted on my NixOS infra so this is no longer needed.
+  # deploy:
+  #   name: Deploy Stack
+  #   runs-on: ubuntu-latest
+  #   environment: production
+  #   needs: [build-frontend, build-backend]
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
 
-      - name: Deploy stack
-        uses: ibiixie/stack-deploy-action@feature/multiple-compose-inputs
-        with:
-          host: ${{ secrets.REMOTE_HOST }}
-          user: ${{ vars.REMOTE_USER }}
-          ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          file: ./compose.yaml;./compose.prod.yaml
-          name: biixie-website
-          mode: compose
-        env:
-          CF_TURNSTILE_SECRET: ${{ secrets.CF_TURNSTILE_SECRET }}
-          KVP_REDACTED_TERMS: ${{ secrets.REDACTED_TERMS }}
+  #     - name: Deploy stack
+  #       uses: ibiixie/stack-deploy-action@feature/multiple-compose-inputs
+  #       with:
+  #         host: ${{ secrets.REMOTE_HOST }}
+  #         user: ${{ vars.REMOTE_USER }}
+  #         ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #         file: ./compose.yaml;./compose.prod.yaml
+  #         name: biixie-website
+  #         mode: compose
+  #       env:
+  #         CF_TURNSTILE_SECRET: ${{ secrets.CF_TURNSTILE_SECRET }}
+  #         KVP_REDACTED_TERMS: ${{ secrets.REDACTED_TERMS }}
 
   purge-cache:
     name: Purge Cloudflare Cache
